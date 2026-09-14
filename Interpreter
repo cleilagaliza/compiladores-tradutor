@@ -1,0 +1,87 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+public class Interpreter {
+    private final Map<String, Integer> variables;
+    private final Stack<Integer> stack;
+
+    public Interpreter() {
+        this.variables = new HashMap<>();
+        this.stack = new Stack<>();
+    }
+
+    public void execute(List<String> commands) {
+        for (String command : commands) {
+            String[] parts = command.trim().split("\\s+");
+            String op = parts[0];
+
+            switch (op) {
+                case "push":
+                    String arg = parts[1];
+                    if (variables.containsKey(arg)) {
+                        stack.push(variables.get(arg));
+                    } else {
+                        try {
+                            stack.push(Integer.parseInt(arg));
+                        } catch (NumberFormatException e) {
+                            throw new RuntimeException("Erro em tempo de execução: variável ou número inválido '" + arg + "'");
+                        }
+                    }
+                    break;
+
+                case "pop":
+                    String varName = parts[1];
+                    variables.put(varName, popStack());
+                    break;
+
+                case "add": {
+                    int b = popStack();
+                    int a = popStack();
+                    stack.push(a + b);
+                    break;
+                }
+
+                case "sub": {
+                    int b = popStack();
+                    int a = popStack();
+                    stack.push(a - b);
+                    break;
+                }
+
+                case "mul": {
+                    int b = popStack();
+                    int a = popStack();
+                    stack.push(a * b);
+                    break;
+                }
+
+                case "div": {
+                    int b = popStack();
+                    int a = popStack();
+                    if (b == 0) {
+                        throw new RuntimeException("Erro em tempo de execução: divisão por zero");
+                    }
+                    stack.push(a / b);
+                    break;
+                }
+
+                case "print":
+                    int val = popStack();
+                    System.out.println(val);
+                    break;
+
+                default:
+                    throw new RuntimeException("Erro em tempo de execução: comando desconhecido '" + op + "'");
+            }
+        }
+    }
+
+    private int popStack() {
+        if (stack.isEmpty()) {
+            throw new RuntimeException("Erro em tempo de execução: tentativa de desempilhar de uma pilha vazia");
+        }
+        return stack.pop();
+    }
+}
