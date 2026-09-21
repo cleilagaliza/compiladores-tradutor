@@ -25,25 +25,6 @@ O código está organizado em três componentes principais:
 
 ---
 
-## 🛠️ Como Compilar e Executar
-
-```
-1. **Abra o terminal** na pasta do projeto.
-
-2. **Compile os arquivos Java:**
-
-```
-
-javac \*.java
-
-```
-
-3. **Execute o programa:**
-
-```
-
-java Main
-
 ```
 
 
