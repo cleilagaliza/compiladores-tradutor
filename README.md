@@ -28,20 +28,21 @@ O código está organizado em três componentes principais:
 ## 🛠️ Como Compilar e Executar
 
 ```
-1. **Abra o terminal** na pasta onde estão salvos os arquivos `.java` do projeto.
+1. **Abra o terminal** na pasta do projeto.
 
-2. **Compile todos os arquivos Java:**
-   ```bash
-   javac *.java
+2. **Compile os arquivos Java:**
 
 ```
 
-1. **Execute o programa principal:**
+javac \*.java
 
 ```
+
+3. **Execute o programa:**
+
+```
+
 java Main
-
-```
 
 ```
 
